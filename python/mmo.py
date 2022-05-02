@@ -1,3 +1,6 @@
+from collections import OrderedDict, defaultdict
+
+
 categoryInfo = {}
 leaderboard = {}
 
@@ -47,7 +50,51 @@ def getLeaderboards(txt):
     txt = txt.partition('[/quote]\n')[2]
 
 
+def sortCategory (category):
+    if category == 'jumps':
+        jumps = leaderboard['jumps']
+        group = {}
+        for run in jumps.items():
+            if not run[1]['jumps'] in group:
+                group[run[1]['jumps']] = {}
+                
+            group[run[1]['jumps']][run[0]] = run[1]
+        
+        for item in group.items():
+            sortedGroup = sorted(item[1].items(),key=lambda x: x[1]['time'])
+            group[item[0]] = OrderedDict(sortedGroup)
 
+        group = sorted(group.items(),key=lambda x: x[0])
+        
+        result = {}
+
+        for jumps in group:
+            print(jumps[1])
+            for run in jumps[1]:
+                print(run)
+                result[run] = jumps[1][run]
+    else:
+        sortedGroup = sorted(leaderboard[category].items(),key=lambda x: x[1]['time'])
+        result = OrderedDict(sortedGroup)
+    return result
+
+def addTime(category,user,time,jumps=''):
+    leaderboard[category][user] = {'time': time}
+    if category == 'jumps':
+        leaderboard[category][user]['jumps'] = jumps
+
+    leaderboard[category] = sortCategory(category)
+
+def delTime(category,user):
+    del leaderboard[category][user]
+
+
+
+def setup():
+    f = open('mmo leaderboard.txt','r',encoding='utf8')
+    post = f.read()
+    f.close()
+    getLeaderboards(post)
 
 
 if __name__ == "__main__":
