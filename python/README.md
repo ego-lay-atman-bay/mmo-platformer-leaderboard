@@ -20,6 +20,12 @@ mmo.getLeaderboards(post)
 
 Replace `mmo leaderboard.txt` with the file with the post in it.
 
+I did include a function that runs all that for you in the module, but it may be removed.
+
+```python
+mmo.setup()
+```
+
 To import a post without a file, just put the text inside the `mmo.getLeaderboards()` function.
 
 # Usage
