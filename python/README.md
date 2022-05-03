@@ -38,7 +38,7 @@ If you want to use the actual names, then just put this in for the name
 ```python
 mmo.categories['Any%']
 ```
-Change `'Any%'` to whatever categoy you want. Note: they are case sensative.
+Change `'Any%'` to whatever category you want. Note: they are case sensitive.
 
 ## Getting leaderboard info
 
@@ -115,7 +115,7 @@ To delete a run, just use this
 delTime(user)
 ```
 
-The `user` argument is case sensative so you need to type in the user with the correct case
+The `user` argument is case sensitive so you need to type in the user with the correct case
 
 Example:
 ```python
@@ -132,7 +132,7 @@ mmo.export()
 
 This function will create a new file called `'mmo leaderboard (current date)'`, for example, `'mmo leaderboard 02-05-22'`
 
-## Sorting a categoy
+## Sorting a category
 
 You shouldn't need to do this, since this is already done when the `addTime()` function is ran
 
