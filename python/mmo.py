@@ -80,7 +80,7 @@ def sortCategory(category):
         result = OrderedDict(sortedGroup)
     return result
 
-def addTime(category,user,time,jumps=''):
+def addTime(category,user,time,jumps=None):
     leaderboard[category][user] = {'time': time}
     if category == 'jumps':
         leaderboard[category][user]['jumps'] = jumps
