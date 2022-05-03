@@ -125,12 +125,15 @@ def export():
         result.append(getCatTxt(cat))
     
     today = date.today()
-    today = today.strftime("%B %d, %Y")
+    update = today.strftime("%B %d, %Y")
 
     result = '\n'.join(result)
-    result = '[b][big]Hello all! . . . . (Last Update: ' + today +')[/big][/b]\n' + postInfo[0] + '\n' + result + '\n' + postInfo[1]
+    result = '[b][big]Hello all! . . . . (Last Update: ' + update +')[/big][/b]\n' + postInfo[0] + '\n' + result + '\n' + postInfo[1]
     
-
+    f = open('mmo leaderboard ' + today.strftime("%m-%d-%y"),"w")
+    f.write(result)
+    f.close()
+    
     return result
 
 def setup():
@@ -145,8 +148,5 @@ if __name__ == "__main__":
     post = f.read()
     f.close()
 
-    print('\n1')
-    print(post)
-
-    print(getLeaderboards(post))
+    getLeaderboards(post)
 
