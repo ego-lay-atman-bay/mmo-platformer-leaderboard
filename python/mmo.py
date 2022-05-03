@@ -54,7 +54,7 @@ def getLeaderboards(txt):
     postInfo.append(txt)
 
 
-def sortCategory (category):
+def sortCategory(category):
     if category == 'jumps':
         jumps = leaderboard['jumps']
         group = {}
