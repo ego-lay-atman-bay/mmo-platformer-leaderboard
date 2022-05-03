@@ -1,11 +1,14 @@
 from collections import OrderedDict, defaultdict
+from datetime import date
 
 
 categoryInfo = {}
+postInfo = []
 leaderboard = {}
+categories = {'any': 'Any%', 'crouchless': 'Crouchless', 'refresh': 'Refresh%', 'jumps': 'Minimum Jumps', 'test': 'Test%'}
 
 def getLeaderboards(txt):
-    global categoryInfo, leaderboard
+    global categoryInfo, leaderboard, postInfo
 
     def parseRun(run,cat):
         if cat == 'jumps':
@@ -22,10 +25,10 @@ def getLeaderboards(txt):
     
     def getCat(cat,txt):
         current = txt.partition(cat)[2]
-        print('\ngetCat')
-        print(current)
+        #print('\ngetCat')
+        #print(current)
         info = '-' + current.partition('-')[2].partition('\n')[0]
-        print(info)
+        #print(info)
         current = current.partition('[list=1]\n')[2]
         current = current.partition('\n[/list]')
         leaderboard = current[0].split('\n')
@@ -35,8 +38,8 @@ def getLeaderboards(txt):
         return [leaderboard,current]
 
     
-
     txt = txt.partition('\n')[2]
+    postInfo.append(txt.partition('\n[quote]')[0])
 
     categories = [['Any%','any'],['Crouchless','crouchless'],['Refresh%','refresh'],['Minimum Jumps','jumps'],['Test%','test']]
     for i in categories:
@@ -48,6 +51,7 @@ def getLeaderboards(txt):
             leaderboard[i[1]][runInfo['user']] = runInfo['info']
 
     txt = txt.partition('[/quote]\n')[2]
+    postInfo.append(txt)
 
 
 def sortCategory (category):
@@ -69,9 +73,7 @@ def sortCategory (category):
         result = {}
 
         for jumps in group:
-            print(jumps[1])
             for run in jumps[1]:
-                print(run)
                 result[run] = jumps[1][run]
     else:
         sortedGroup = sorted(leaderboard[category].items(),key=lambda x: x[1]['time'])
@@ -88,7 +90,48 @@ def addTime(category,user,time,jumps=''):
 def delTime(category,user):
     del leaderboard[category][user]
 
+def export():
+    def getLeaderboard(cat):
+        board = leaderboard[cat]
+        time = ''
+        result = []
+        for run in board.items():
+            if run[1]['time'] == time:
+                item = '. .'
+            else:
+                item = '[*]. .'
+            
+            if cat == 'jumps':
+                item = item + '(' + run[1]['jumps'] + '). .'
+            item = item + run[1]['time']
+            item = item + ' by [url=https://scratch.mit.edu/users/' + run[0] + '/]@' + run[0] + '[/url]'
+            result.append(item)
+            time = run[1]['time']
+        
+        result = '\n'.join(result)
+        #print('\n' + cat)
+        #print(result)
+        return result
 
+    def getCatTxt(cat):
+        info = [categories[cat],categoryInfo[categories[cat]]]
+        result = '[quote]\n[big][b]' + info[0] + '[/b][/big] ' + info[1][0] + '\n[list=1]\n' + getLeaderboard(cat) + '\n[/list]\n[u][b]Category Rules[/b][/u]:\n' + info[1][1] + '\n[/quote]'
+        #print(result)
+        return result
+
+    result = []
+    for cat in ['any','crouchless','refresh','jumps','test']:
+        leaderboard[cat] = sortCategory(cat)
+        result.append(getCatTxt(cat))
+    
+    today = date.today()
+    today = today.strftime("%B %d, %Y")
+
+    result = '\n'.join(result)
+    result = '[b][big]Hello all! . . . . (Last Update: ' + today +')[/big][/b]\n' + postInfo[0] + '\n' + result + '\n' + postInfo[1]
+    
+
+    return result
 
 def setup():
     f = open('mmo leaderboard.txt','r',encoding='utf8')
