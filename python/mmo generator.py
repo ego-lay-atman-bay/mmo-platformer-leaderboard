@@ -62,6 +62,7 @@ def editCatInfo():
 def editPost():
     pass
 
+
 def runAction(action):
 
     def invalid():
