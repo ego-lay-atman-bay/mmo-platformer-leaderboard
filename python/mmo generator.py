@@ -57,7 +57,7 @@ def addTime():
             return
     if category == 'jumps':
         jumps = input('jumps: ')
-        if user == '':
+        if jumps == '':
             return
     time = input('time: ')
     if time == '':
@@ -86,7 +86,19 @@ def delTime():
         mmo.delTime(category,user)
 
 def viewLeaderboard():
-    pass
+    print('\nenter nothing anytime to cancel')
+    category = getCatName()
+    if category == None:
+        return
+
+    for run in mmo.leaderboard[category].items():
+        txt = run[1]['time']
+        if category == 'jumps':
+            txt += ' (' + run[1]['jumps'] + ')'
+        txt += ' by ' + run[0]
+        print(txt)
+
+    n = input()
 
 def editCatInfo():
     pass
