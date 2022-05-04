@@ -130,11 +130,12 @@ def export():
     result = '\n'.join(result)
     result = '[b][big]Hello all! . . . . (Last Update: ' + update +')[/big][/b]\n' + postInfo[0] + '\n' + result + '\n' + postInfo[1]
     
-    f = open('mmo leaderboard ' + today.strftime("%m-%d-%y"),"w")
+    filename = 'mmo leaderboard ' + today.strftime("%m-%d-%y"),"w"
+    f = open(filename)
     f.write(result)
     f.close()
     
-    return result
+    return filename
 
 def setup():
     f = open('mmo leaderboard.txt','r',encoding='utf8')
