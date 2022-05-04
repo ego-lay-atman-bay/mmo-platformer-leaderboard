@@ -1,4 +1,3 @@
-from this import d
 import mmo
 
 def addTime():
@@ -64,7 +63,7 @@ def editPost():
     pass
 
 def runAction(action):
-    
+
     def invalid():
         raise Exception('invalid action')
 
