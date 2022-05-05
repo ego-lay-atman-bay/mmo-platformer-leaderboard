@@ -101,7 +101,11 @@ def viewLeaderboard():
     n = input()
 
 def editCatInfo():
-    pass
+    print('\nenter nothing anytime to cancel')
+    category = getCatName()
+    if category == None:
+        return
+    
 
 def editPost():
     pass
