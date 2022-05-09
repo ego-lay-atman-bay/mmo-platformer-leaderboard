@@ -6,6 +6,7 @@ categoryInfo = {}
 postInfo = []
 leaderboard = {}
 categories = {'any': 'Any%', 'crouchless': 'Crouchless', 'refresh': 'Refresh%', 'jumps': 'Minimum Jumps', 'test': 'Test%'}
+categoryName = {'Any%': 'any', 'Crouchless':'crouchless', 'Refresh%':'refresh','Minimum Jumps':'jumps','Test%':'test'}
 
 def getLeaderboards(txt):
     global categoryInfo, leaderboard, postInfo
