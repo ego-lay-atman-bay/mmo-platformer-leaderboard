@@ -42,7 +42,7 @@ To get started, here's the category names I used
 
 If you want to use the actual names, then just put this in for the name
 ```python
-mmo.categories['Any%']
+mmo.categoryName['Any%']
 ```
 Change `'Any%'` to whatever category you want. Note: they are case sensitive.
 
