@@ -133,17 +133,12 @@ def export():
     
     return result
 
-def setup():
-    f = open('mmo leaderboard.txt','r',encoding='utf8')
-    post = f.read()
-    f.close()
-    getLeaderboards(post)
+# def setup():
+#     f = open('mmo leaderboard.txt','r',encoding='utf8')
+#     post = f.read()
+#     f.close()
+#     getLeaderboards(post)
 
 
 if __name__ == "__main__":
-    f = open('mmo leaderboard.txt','r',encoding='utf8')
-    post = f.read()
-    f.close()
-
-    getLeaderboards(post)
-
+    pass
