@@ -132,11 +132,20 @@ delTime('ego-lay_atman-bay')
 
 To export the post, just use this function
 
-```
+```python
 mmo.export()
 ```
 
-This function will create a new file called `'mmo leaderboard (current date)'`, for example, `'mmo leaderboard 02-05-22'`
+This will just return the contents of the post. To export it as a file, do this
+
+```python
+contents = mmo.export()
+f = open(filename, 'w')
+f.write(contents)
+f.close
+```
+
+`filename` is the path to the new file you want. Note: this will replace a file of the same name without confirmation.
 
 ## Sorting a category
 
