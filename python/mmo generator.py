@@ -1,4 +1,29 @@
 import mmo
+from datetime import date
+import tkinter as tk
+from tkinter import filedialog
+from tkinter import *
+
+def ask(txt=''):
+    result = input(txt)
+    if result == '':
+        return None
+    return result
+
+def userInCat(user,category):
+    lowUser = user.lower()
+    result = user
+    for run in mmo.leaderboard[category].items():
+        if run[0] == user:
+            result = user
+            break
+        elif run[0].lower() == lowUser:
+            confirm = input('Did you mean "' + run[0] + '"? (y/n): ')
+            if confirm == 'y' or confirm == 'yes':
+                result = run[0]
+                break
+
+    return result
 
 def getCatName():
     catNames = {
@@ -32,9 +57,11 @@ def getCatName():
     cat = ''
     while not cat in catNames:
         printCatNames()
-        cat = input().lower()
-        if cat == '':
-            return None
+        cat = ask()
+        if cat == None:
+            return
+        else:
+            cat = cat.lower()
 
     cat = catNames[cat]
     
@@ -46,21 +73,18 @@ def addTime():
     category = getCatName()
     if category == None:
         return
-    user = input('user: ')
-    if user == '':
+    user = ask('user: ')
+    if user == None:
         return
-
-
-    while not user in mmo.leaderboard[category]:
-        user = input('User not found. Maybe you used incorrect capitalization?')
-        if user == '':
-            return
+    user = userInCat(user,category)
+    if user == None:
+        return
     if category == 'jumps':
-        jumps = input('jumps: ')
-        if jumps == '':
+        jumps = ask('jumps: ')
+        if jumps == None:
             return
-    time = input('time: ')
-    if time == '':
+    time = ask('time: ')
+    if time == None:
         return
 
     if category == 'jumps':
@@ -73,14 +97,21 @@ def delTime():
     category = getCatName()
     if category == None:
         return
-    user = input('user: ')
-    if user == '':
+    user = ask('user: ')
+    if user == None:
+        return
+    user = userInCat(user,category)
+    if user == None:
         return
 
     while not user in mmo.leaderboard[category]:
-        user = input('User not found. Maybe you used incorrect capitalization?')
-        if user == '':
+        user = ask('User not found. Maybe you used incorrect capitalization? ')
+        if user == None:
             return
+        user = userInCat(user,category)
+        if user == None:
+            return
+        
 
     if input('Are you sure you want to delete @'+user+"'s run " + str(mmo.leaderboard[category][user]) + ' (y/n):\n') == 'y' or 'yes':
         mmo.delTime(category,user)
@@ -100,19 +131,20 @@ def viewLeaderboard():
 
     n = input()
 
-def editCatInfo():
-    print('\nenter nothing anytime to cancel')
-    category = getCatName()
-    if category == None:
-        return
-    
-
-def editPost():
-    pass
-
 def export():
-    filename = mmo.export()
-    print('Post exported as ' + filename)
+    txt = mmo.export()
+    today = date.today()
+    filename = 'mmo leaderboard ' + today.strftime("%m-%d-%y") + '.txt'
+
+    root = tk.Tk()
+    root.withdraw()
+
+    path = filedialog.asksaveasfilename(initialfile=filename, title = "Save post",filetypes = (("text files","*.txt"),("all files","*.*")))
+    print(path)
+
+    f = open(path, 'w', encoding='utf8')
+    f.write(txt)
+    f.close()
 
 def runAction(action):
 
@@ -124,9 +156,7 @@ def runAction(action):
         '2': delTime,
         '3': export,
         '4': viewLeaderboard,
-        '5': editCatInfo,
-        '6': editPost,
-        '7': exit
+        '5': exit
     }
 
     action_fun = actions.get(action, invalid)
@@ -134,7 +164,12 @@ def runAction(action):
 
 
 def main():
-    fileName = input('Enter path to post: ')
+    # fileName = input('Enter path to post: ')
+
+    root = tk.Tk()
+    root.withdraw()
+
+    fileName = filedialog.askopenfilename()
 
     f = open(fileName,'r',encoding='utf8')
     post = f.read()
@@ -143,7 +178,7 @@ def main():
     print('load successful')
 
     while True:
-        action = input('\n1 = add/update run\n2 = delete run\n3 = export\n\n4 = view leaderboard\n5 = edit category info\n6 = edit extra post text\n\n7 = exit\n')
+        action = input('\n1 = add/update run\n2 = delete run\n3 = export\n\n4 = view leaderboard\n5 = exit\n')
         runAction(action)
 
 
