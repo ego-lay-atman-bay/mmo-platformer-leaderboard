@@ -9,6 +9,18 @@ To import the module, just do
 import mmo
 ```
 
+This does require these modules, so if they're not already installed, install them.
+```
+collections
+datetime
+```
+
+and for the `mmo generator.py` file, you need the
+```
+tkinter
+```
+module
+
 To import the post, you can either paste into the function itself, or load a file (which I recommend)
 
 ```python
