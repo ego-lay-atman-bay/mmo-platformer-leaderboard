@@ -139,7 +139,7 @@ def export():
     root = tk.Tk()
     root.withdraw()
 
-    path = filedialog.asksaveasfilename(initialfile=filename, title = "Save post",filetypes = (("text files","*.txt"),("all files","*.*")))
+    path = filedialog.asksaveasfilename(initialfile=filename, title = "Save post as",filetypes = (("text files","*.txt"),("all files","*.*")))
     print(path)
 
     f = open(path, 'w', encoding='utf8')
@@ -169,7 +169,7 @@ def main():
     root = tk.Tk()
     root.withdraw()
 
-    fileName = filedialog.askopenfilename()
+    fileName = filedialog.askopenfilename(title='Open post')
 
     f = open(fileName,'r',encoding='utf8')
     post = f.read()
