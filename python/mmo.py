@@ -1,4 +1,4 @@
-from collections import OrderedDict, defaultdict
+from collections import OrderedDict
 from datetime import date
 
 
@@ -131,12 +131,7 @@ def export():
     result = '\n'.join(result)
     result = '[b][big]Hello all! . . . . (Last Update: ' + update +')[/big][/b]\n' + postInfo[0] + '\n' + result + '\n' + postInfo[1]
     
-    filename = 'mmo leaderboard ' + today.strftime("%m-%d-%y"),"w"
-    f = open(filename)
-    f.write(result)
-    f.close()
-    
-    return filename
+    return result
 
 def setup():
     f = open('mmo leaderboard.txt','r',encoding='utf8')
