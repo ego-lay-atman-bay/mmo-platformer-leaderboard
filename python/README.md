@@ -15,11 +15,10 @@ collections
 datetime
 ```
 
-and for the `mmo generator.py` file, you need the
+and for the `mmo generator.py` file, you need this module
 ```
 tkinter
 ```
-module
 
 To import the post, you can either paste into the function itself, or load a file (which I recommend)
 
