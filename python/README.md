@@ -140,7 +140,7 @@ This will just return the contents of the post. To export it as a file, do this
 
 ```python
 contents = mmo.export()
-f = open(filename, 'w')
+f = open(filename, 'w', encoding='utf8')
 f.write(contents)
 f.close
 ```
