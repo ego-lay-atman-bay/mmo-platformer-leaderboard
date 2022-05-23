@@ -141,16 +141,16 @@ delTime('ego-lay_atman-bay')
 
 ## Exporting
 
-To export the post, just use this function
+To export the post, just use this function with the link to the update post in an input.
 
 ```python
-mmo.export()
+mmo.export('https://example.com')
 ```
 
 This will just return the contents of the post. To export it as a file, do this
 
 ```python
-contents = mmo.export()
+contents = mmo.export('https://example.com')
 f = open(filename, 'w', encoding='utf8')
 f.write(contents)
 f.close
