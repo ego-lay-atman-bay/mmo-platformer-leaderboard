@@ -136,7 +136,8 @@ def viewLeaderboard():
     n = input()
 
 def export():
-    txt = mmo.export()
+    url = input('update post url: ')
+    txt = mmo.export(url)
     today = date.today()
     filename = 'mmo leaderboard ' + today.strftime("%m-%d-%y") + '.txt'
 
@@ -200,7 +201,7 @@ def backup():
 
     path = data + '/backup.txt'
     f = open(path, 'w', encoding='utf8')
-    contents = mmo.export()
+    contents = mmo.export('')
     f.write(contents)
     f.close()
 

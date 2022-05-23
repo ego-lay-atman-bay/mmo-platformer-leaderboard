@@ -5,11 +5,12 @@ from datetime import date
 categoryInfo = {}
 postInfo = []
 leaderboard = {}
+lastUpdate = []
 categories = {'any': 'Any%', 'crouchless': 'Crouchless', 'refresh': 'Refresh%', 'jumps': 'Minimum Jumps', 'test': 'Test%'}
 categoryName = {'Any%': 'any', 'Crouchless':'crouchless', 'Refresh%':'refresh','Minimum Jumps':'jumps','Test%':'test'}
 
 def getLeaderboards(txt):
-    global categoryInfo, leaderboard, postInfo
+    global categoryInfo, leaderboard, postInfo, lastUpdate
 
     def parseRun(run,cat):
         if cat == 'jumps':
@@ -38,9 +39,12 @@ def getLeaderboards(txt):
         categoryInfo[cat] = [info,rules]
         return [leaderboard,current]
 
-    
-    txt = txt.partition('\n')[2]
+    lastUpdate.append(txt.partition('[url=')[0])
+    txt = txt.partition('](')[2]
+    lastUpdate.append(txt.partition(')[/url]')[2])
+    txt = txt.partition(')[/url]')[2]
     postInfo.append(txt.partition('\n[quote]')[0])
+    txt = txt.partition('\n[quote]')[2]
 
     categories = [['Any%','any'],['Crouchless','crouchless'],['Refresh%','refresh'],['Minimum Jumps','jumps'],['Test%','test']]
     for i in categories:
@@ -91,7 +95,7 @@ def addTime(category,user,time,jumps=None):
 def delTime(category,user):
     del leaderboard[category][user]
 
-def export():
+def export(url):
     def getLeaderboard(cat):
         board = leaderboard[cat]
         time = ''
@@ -126,18 +130,22 @@ def export():
         result.append(getCatTxt(cat))
     
     today = date.today()
-    update = today.strftime("%B %d, %Y")
+    updateTime = today.strftime("%B %d, %Y")
 
     result = '\n'.join(result)
-    result = '[b][big]Hello all! . . . . (Last Update: ' + update +')[/big][/b]\n' + postInfo[0] + '\n' + result + '\n' + postInfo[1]
+    update = lastUpdate[0]
+    update += '[url=' + url + ']'
+    update += '(Last Update: ' + updateTime + ')'
+    update += '[/url]'
+    result = update + postInfo[0] + '\n' + result + '\n' + postInfo[1]
     
     return result
 
-# def setup():
-#     f = open('mmo leaderboard.txt','r',encoding='utf8')
-#     post = f.read()
-#     f.close()
-#     getLeaderboards(post)
+def setup():
+    f = open('mmo leaderboard.txt','r',encoding='utf8')
+    post = f.read()
+    f.close()
+    getLeaderboards(post)
 
 
 if __name__ == "__main__":
