@@ -141,7 +141,7 @@ mmo.delTime('any', 'ego-lay_atman-bay')
 
 ## Exporting
 
-To export the post, just use this function with the link to the update post in an input.
+To export the post, just use this function with the link to the update post in an input. The link is optional (it'll default to `mmo.lastUpdateUrl`)
 
 ```python
 mmo.export('https://example.com')
