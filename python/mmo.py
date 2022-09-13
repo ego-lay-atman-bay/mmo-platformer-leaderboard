@@ -6,11 +6,12 @@ categoryInfo = {}
 postInfo = []
 leaderboard = {}
 lastUpdate = []
+lastUpdateUrl = ''
 categories = {'any': 'Any%', 'crouchless': 'Crouchless', 'refresh': 'Refresh%', 'jumps': 'Minimum Jumps', 'test': 'Test%'}
 categoryName = {'Any%': 'any', 'Crouchless':'crouchless', 'Refresh%':'refresh','Minimum Jumps':'jumps','Test%':'test'}
 
 def getLeaderboards(txt):
-    global categoryInfo, leaderboard, postInfo, lastUpdate
+    global categoryInfo, leaderboard, postInfo, lastUpdate, lastUpdateUrl
 
     def parseRun(run,cat):
         if cat == 'jumps':
@@ -40,6 +41,7 @@ def getLeaderboards(txt):
         return [leaderboard,current]
 
     lastUpdate.append(txt.partition('[url=')[0])
+    lastUpdateUrl = txt.partition('[url=')[2].partition(']')[0]
     txt = txt.partition('](')[2]
     lastUpdate.append(txt.partition(')[/url]')[2])
     txt = txt.partition(')[/url]')[2]
@@ -131,6 +133,9 @@ def export(url):
     
     today = date.today()
     updateTime = today.strftime("%B %d, %Y")
+
+    if not url:
+        url = lastUpdateUrl
 
     result = '\n'.join(result)
     update = lastUpdate[0]
