@@ -129,14 +129,14 @@ mmo.addTime('any','ego-lay_atman-bay',"1'03.2")
 To delete a run, just use this
 
 ```python
-delTime(user)
+mmo.delTime(category, user)
 ```
 
 The `user` argument is case sensitive so you need to type in the user with the correct case
 
 Example:
 ```python
-delTime('ego-lay_atman-bay')
+delTime('any', 'ego-lay_atman-bay')
 ```
 
 ## Exporting
