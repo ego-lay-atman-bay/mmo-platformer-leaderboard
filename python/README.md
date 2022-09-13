@@ -136,7 +136,7 @@ The `user` argument is case sensitive so you need to type in the user with the c
 
 Example:
 ```python
-delTime('any', 'ego-lay_atman-bay')
+mmo.delTime('any', 'ego-lay_atman-bay')
 ```
 
 ## Exporting
