@@ -1,5 +1,6 @@
 from collections import OrderedDict
 from datetime import date
+import string
 
 
 categoryInfo = {}
@@ -97,7 +98,7 @@ def addTime(category,user,time,jumps=None):
 def delTime(category,user):
     del leaderboard[category][user]
 
-def export(url):
+def export(url=''):
     def getLeaderboard(cat):
         board = leaderboard[cat]
         time = ''
